@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Edit Product</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .form-container {
+      border: 1px solid #3498db;
+      border-radius: 8px;
+      padding: 20px;
+      width: 400px;
+      margin: 50px auto;
+    }
+    label { display: block; margin: 10px 0 5px; }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .btn { 
+      background: #3498db; 
+      color: white; 
+      padding: 10px 20px; 
+      border: none; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      width: 100%;
+    }
+    .btn:hover { background: #2980b9; }
+    .top-links { display: flex; justify-content: space-between; margin: 10px 50px; }
+    a { text-decoration: none; color: #3498db; }
+  </style>
+</head>
+<body>
+  <div class="top-links">
+    <a href="/admin">Admin Homepage</a>
+    <a href="/logout">Logout</a>
+  </div>
+
+  <h2 style="text-align:center;">Admin Edit Product</h2>
+
+  <div class="form-container">
+    <form id="editProductForm">
+      <label>Product Code</label>
+      <input type="text" id="code" readonly>
+
+      <label>Product Name</label>
+      <input type="text" id="name" required>
+
+      <label>Category</label>
+      <select id="category" required>
+        <option value="">Choose a category</option>
+        <option value="Apple">Apple</option>
+        <option value="Samsung">Samsung</option>
+        <option value="OnePlus">OnePlus</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label>Product Amount</label>
+      <input type="number" id="amount" required>
+
+      <button type="submit" class="btn">Update</button>
+    </form>
+  </div>
+
+  <script>
+    // Get product code from query string: /edit?code=123
+    const urlParams = new URLSearchParams(window.location.search);
+    const productCode = urlParams.get("code");
+
+    async function loadProduct() {
+      const res = await fetch(`/api/products/${productCode}`);
+      if (res.ok) {
+        const p = await res.json();
+        document.getElementById("code").value = p.code;
+        document.getElementById("name").value = p.name;
+        document.getElementById("category").value = p.category;
+        document.getElementById("amount").value = p.amount;
+      } else {
+        alert("Product not found");
+        window.location.href = "/";
+      }
+    }
+
+    document.getElementById("editProductForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const category = document.getElementById("category").value;
+      const amount = document.getElementById("amount").value;
+
+      const res = await fetch(`/api/products/${productCode}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, category, amount })
+      });
+
+      if (res.ok) {
+        alert("Product updated successfully!");
+        window.location.href = "/";
+      } else {
+        alert("Error updating product");
+      }
+    });
+
+    loadProduct();
+  </script>
+</body>
+</html>

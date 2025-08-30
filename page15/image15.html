@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order 2</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .search-bar { width: 60%; padding: 8px; }
+    .container {
+      border: 1px solid #3498db;
+      border-radius: 8px;
+      padding: 20px;
+      margin: auto;
+      width: 50%;
+      text-align: center;
+    }
+    .payment-option {
+      display: block;
+      margin: 10px auto;
+      text-align: left;
+      width: fit-content;
+    }
+    .btn {
+      background: #8e44ad;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .btn:hover { background: #732d91; }
+    a { text-decoration: none; color: #3498db; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <a href="/">Home</a>
+    </div>
+    <div>
+      <input type="text" placeholder="Shop..." class="search-bar">
+      <a href="/user">User</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Payment Details</h2>
+    <form id="paymentForm">
+      <label class="payment-option">
+        <input type="radio" name="paymentMethod" value="Online Payment" required> Online Payment
+      </label>
+      <label class="payment-option">
+        <input type="radio" name="paymentMethod" value="Cash on Delivery"> Cash on Delivery
+      </label>
+      <label class="payment-option">
+        <input type="radio" name="paymentMethod" value="PayPal"> PayPal
+      </label>
+      <button type="submit" class="btn">Confirm Order</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("paymentForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const formData = {
+        paymentMethod: this.paymentMethod.value
+      };
+
+      const res = await fetch("/api/confirm-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+
+      if (res.ok) {
+        alert("Order Confirmed! Thank you for shopping.");
+        window.location.href = "/"; // redirect to homepage or success page
+      } else {
+        alert("Failed to confirm order");
+      }
+    });
+  </script>
+</body>
+</html>

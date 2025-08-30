@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Delete Category</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    .nav { margin: 20px; }
+    .container {
+      width: 500px;
+      margin: 50px auto;
+      border: 2px solid #87aafc;
+      padding: 30px;
+      border-radius: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    th {
+      background: #ddd;
+    }
+    button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover { background: darkred; }
+    .add-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .add-btn:hover { background: darkblue; }
+    a { margin: 0 15px; text-decoration: none; color: blue; }
+  </style>
+  <script>
+    function confirmDelete(form) {
+      if (confirm("Are you sure you want to delete this category?")) {
+        form.submit();
+      }
+    }
+  </script>
+</head>
+<body>
+  <h2>Admin Delete Category</h2>
+  <div class="nav">
+    <a href="/">Admin Homepage</a> | 
+    <a href="/logout">Logout</a>
+  </div>
+
+  <div class="container">
+    <table>
+      <tr>
+        <th>Category Name</th>
+        <th>Action</th>
+      </tr>
+      <% categories.forEach((cat, index) => { %>
+        <tr>
+          <td><%= cat %></td>
+          <td>
+            <form action="/delete-category/<%= index %>" method="POST" style="display:inline;">
+              <button type="button" onclick="confirmDelete(this.form)">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+
+    <br>
+    <button class="add-btn" onclick="window.location.href='/add-category'">Add Category</button>
+  </div>
+</body>
+</html>

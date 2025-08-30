@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Buy Now</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .search-bar { width: 60%; padding: 8px; }
+    .container {
+      border: 1px solid #3498db;
+      border-radius: 8px;
+      padding: 20px;
+      margin: auto;
+      width: 70%;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+    }
+    .product-image {
+      border: 1px solid #ccc;
+      width: 250px;
+      height: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .details {
+      max-width: 400px;
+    }
+    .btn {
+      display: block;
+      width: 150px;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn-cart { background: #8e44ad; color: #fff; }
+    .btn-buy { background: #27ae60; color: #fff; }
+    .btn-cart:hover { background: #732d91; }
+    .btn-buy:hover { background: #1e8449; }
+    a { text-decoration: none; color: #3498db; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <a href="/">Home</a>
+    </div>
+    <div>
+      <input type="text" placeholder="Shop..." class="search-bar">
+      <a href="/user">User</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="product-image">
+      <span id="productImage">Product</span>
+    </div>
+    <div class="details">
+      <h2 id="productName"></h2>
+      <p id="productDescription"></p>
+      <h3 id="productPrice"></h3>
+      <button class="btn btn-cart" onclick="addToCart()">Add To Cart</button>
+      <button class="btn btn-buy" onclick="buyNow()">Buy Now</button>
+    </div>
+  </div>
+
+  <script>
+    // Get product code from query string: /product?code=123
+    const urlParams = new URLSearchParams(window.location.search);
+    const productCode = urlParams.get("code");
+
+    async function loadProduct() {
+      const res = await fetch(`/api/products/${productCode}`);
+      if (res.ok) {
+        const p = await res.json();
+        document.getElementById("productName").innerText = p.name;
+        document.getElementById("productDescription").innerText = "This is a great " + p.name + " by " + p.category + ".";
+        document.getElementById("productPrice").innerText = "Rs." + p.amount;
+        document.getElementById("productImage").innerText = p.name;
+      } else {
+        alert("Product not found");
+        window.location.href = "/";
+      }
+    }
+
+    function addToCart() {
+      alert("Product added to cart!");
+      // Here you can add cart API logic
+    }
+
+    function buyNow() {
+      alert("Proceeding to checkout...");
+      // Here you can add order API logic
+    }
+
+    loadProduct();
+  </script>
+</body>
+</html>
