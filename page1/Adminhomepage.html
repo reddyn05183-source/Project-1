@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Homepage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    /* Fake browser bar */
+    .browser-bar {
+      background: #ccc;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .url-box {
+      flex: 1;
+      margin: 0 10px;
+    }
+
+    .url-box input {
+      width: 100%;
+      padding: 5px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      background: #eee;
+      border: 2px solid #333;
+      margin: 20px;
+    }
+
+    /* Logout link */
+    .logout {
+      text-align: right;
+      margin: 10px 20px;
+    }
+
+    .logout a {
+      color: red;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Main box */
+    .main-box {
+      border: 2px solid #4285f4;
+      width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    /* Buttons */
+    .main-box button {
+      background: #4b2e83;
+      color: white;
+      border: none;
+      padding: 40px 30px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 180px;
+      height: 120px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .main-box button:hover {
+      background: #2d1650;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Fake Browser Bar -->
+  <div class="browser-bar">
+    <span>⬅️ ⬆️ ⏹️ 🏠</span>
+    <div class="url-box">
+      <input type="text" value="http://ostraining.in">
+    </div>
+    <button>🔍</button>
+  </div>
+
+  <!-- Logo -->
+  <div class="logo"></div>
+
+  <!-- Logout -->
+  <div class="logout">
+    <a href="./logout">Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-box">
+    <button>Click me ! <br> Categories</button>
+    <button>Click me ! <br> Products</button>
+  </div>
+
+</body>
+
+</html>

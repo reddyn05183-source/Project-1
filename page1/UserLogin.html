@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>User Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search-bar {
+      width: 60%;
+      padding: 8px;
+    }
+
+    .container {
+      border: 1px solid #3498db;
+      border-radius: 8px;
+      padding: 20px;
+      margin: auto;
+      width: 40%;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 95%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px;
+      width: 48%;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .register-btn {
+      background: #6c5ce7;
+      color: white;
+    }
+
+    .login-btn {
+      background: #0984e3;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div><a href="./homepage.html">Home</a></div>
+    <div>
+      <input type="text" placeholder="Shop..." class="search-bar">
+      <a href="./UserLogin.html">User</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>User Login</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label>Email / Username</label>
+        <input type="text" name="email" required placeholder="Type your username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" required placeholder="Type your password">
+      </div>
+      <div class="btn-group">
+        <button type="button" class="register-btn" onclick="window.location.href='register.html'">Register</button>
+        <button type="submit" class="login-btn">Login</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = Object.fromEntries(new FormData(this));
+
+      fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+          if (data.success) {
+            window.location.href = "/welcome.html"; // redirect after successful login
+          }
+        });
+    });
+  </script>
+</body>
+
+</html>

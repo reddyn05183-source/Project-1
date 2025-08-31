@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Edit Category</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .nav {
+      margin: 20px;
+    }
+
+    .container {
+      width: 400px;
+      margin: 50px auto;
+      border: 2px solid #87aafc;
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      width: 200px;
+    }
+
+    button {
+      margin-top: 15px;
+      background: purple;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: darkviolet;
+    }
+
+    a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Admin Edit Category</h2>
+  <div class="nav">
+    <a href="/Adminhompage.html">Admin Homepage</a> |
+    <a href="/logout">Logout</a>
+  </div>
+
+  <div class="container">
+    <form action="/edit-category/<%= id %>" method="POST">
+      <label for="categoryName">Category Name: </label>
+      <input type="text" id="categoryName" name="categoryName" value="<%= category %>" required>
+      <br><br>
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</body>
+
+</html>

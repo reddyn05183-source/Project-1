@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Category</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .container {
+      border: 2px solid #007bff;
+      padding: 20px;
+      width: 400px;
+      margin: auto;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    table th {
+      background: #ddd;
+    }
+
+    a,
+    button {
+      margin: 0 5px;
+      text-decoration: none;
+      color: blue;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      background: #5a2ea6;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background: #3c1e70;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="./Adminhomepage.html">Admin Homepage</a>
+  <a href="./logout.html" style="float:right;">Logout</a>
+
+  <div class="container">
+    <table>
+      <tr>
+        <th>Category Name</th>
+        <th>Action</th>
+      </tr>
+      <% categories.forEach((category, index)=> { %>
+        <tr>
+          <td>
+            <%= category %>
+          </td>
+          <td>
+            <form action="/edit/<%= index %>" method="POST" style="display:inline;">
+              <input type="text" name="category" placeholder="Edit name" required>
+              <button type="submit">Edit</button>
+            </form>
+            <form action="/delete/<%= index %>" method="POST" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+    </table>
+
+    <form action="/add" method="POST">
+      <input type="text" name="category" placeholder="New Category" required>
+      <button type="submit" class="btn">Add Category</button>
+    </form>
+  </div>
+</body>
+
+</html>
